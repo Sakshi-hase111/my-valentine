@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>My Valentine 💖</title>
+
+<style>
+body{
+    margin:0;
+    font-family:'Segoe UI', sans-serif;
+    background: radial-gradient(circle, #fffaf3, #f4e9dd);
+    color:#5a2a2a;
+    overflow:hidden;
+}
+
+.container{
+    min-height:100vh;
+    display:none;
+    align-items:center;
+    justify-content:center;
+    flex-direction:column;
+    text-align:center;
+}
+
+.container.active{
+    display:flex;
+}
+
+.card{
+    background:#ffffff;
+    padding:30px;
+    border-radius:22px;
+    box-shadow:0 10px 30px rgba(255,105,135,0.35);
+    max-width:500px;
+    position:relative;
+}
+
+h1{
+    color:#d94a6a;
+}
+
+button{
+    padding:12px 30px;
+    margin:15px;
+    font-size:18px;
+    border:none;
+    border-radius:30px;
+    cursor:pointer;
+}
+
+.yes{
+    background:#ff6f91;
+    color:white;
+}
+
+.no{
+    background:#ddd;
+    color:#777;
+    position:absolute;
+}
+
+img.photo{
+    width:220px;
+    border-radius:20px;
+    margin:20px 0;
+    box-shadow:0 10px 25px rgba(255,111,145,0.5);
+}
+
+/* HEARTBEAT */
+.heartbeat{
+    animation:beat 1.3s infinite;
+}
+@keyframes beat{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.07);}
+}
+
+/* CONFETTI */
+.confetti{
+    position:fixed;
+    top:-10px;
+    font-size:20px;
+    animation:fall linear forwards;
+}
+@keyframes fall{
+    to{
+        transform:translateY(110vh) rotate(360deg);
+        opacity:0;
+    }
+}
+
+/* POCKET */
+.pocket{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.35);
+    display:none;
+    align-items:center;
+    justify-content:center;
+}
+
+.pocket.show{
+    display:flex;
+}
+
+.pocket-card{
+    background:#fff;
+    width:260px;
+    padding:25px;
+    border-radius:0 0 25px 25px;
+    animation:openPocket 0.8s ease;
+    box-shadow:0 20px 40px rgba(0,0,0,0.3);
+}
+
+@keyframes openPocket{
+    from{transform:translateY(-200px) scaleY(0);}
+    to{transform:translateY(0) scaleY(1);}
+}
+</style>
+</head>
+
+<body>
+
+<!-- 🎶 MUSIC -->
+<audio id="bgMusic" loop>
+    <source src="https://cdn.pixabay.com/audio/2023/03/06/audio_6c6c7f3f6a.mp3">
+</audio>
+
+<!-- STEP 1 -->
+<div class="container active" id="step1">
+    <div class="card">
+        <h1>💘 You’re My Valentine? 💘</h1>
+        <button class="yes" onclick="goStep2()">YES 💖</button>
+        <button class="no" id="noBtn">NO 🙄</button>
+    </div>
+</div>
+
+<!-- STEP 2 -->
+<div class="container" id="step2">
+    <div class="card heartbeat">
+        <h1>I Love You Paglu</h1>
+
+        <img class="photo"
+             src="https://c.tenor.com/K9jTTXDgTwIAAAAd/good-morning-funny-animals.gif">
+
+        <p>Before I say anything… just look at this cuteness 🤍</p>
+
+        <button class="yes" onclick="openPocket()">Next 🤍</button>
+    </div>
+</div>
+
+<!-- STEP 3 POCKET -->
+<div class="pocket" id="pocket">
+    <div class="pocket-card heartbeat">
+        <h2>💌</h2>
+        <p>
+            I love you more than words  
+            <br><br>
+            You are my calm,  
+            my chaos, 
+            my paglu,
+            my friend, 
+            my forever ♾️
+
+
+
+            ...Jast Shining Nko Maru Copy Paste Karun Taklye
+        </p>
+        <p>🫶🤍</p>
+    </div>
+</div>
+
+<script>
+const music = document.getElementById("bgMusic");
+const noBtn = document.getElementById("noBtn");
+
+// NO BUTTON RUN
+noBtn.addEventListener("mouseover", ()=>{
+    noBtn.style.transform =
+      `translate(${Math.random()*300-150}px, ${Math.random()*200-100}px)`;
+});
+
+// STEP 1 → STEP 2
+function goStep2(){
+    document.getElementById("step1").classList.remove("active");
+    document.getElementById("step2").classList.add("active");
+    music.play();
+    startConfetti();
+}
+
+// STEP 2 → POCKET
+function openPocket(){
+    document.getElementById("pocket").classList.add("show");
+}
+
+// CONFETTI
+function startConfetti(){
+    const emojis = ["🤍","✨","💞","🫶","🌷"];
+    for(let i=0;i<30;i++){
+        const c = document.createElement("div");
+        c.className="confetti";
+        c.innerText = emojis[Math.floor(Math.random()*emojis.length)];
+        c.style.left = Math.random()*100 + "vw";
+        c.style.animationDuration = (Math.random()*3+2)+"s";
+        document.body.appendChild(c);
+        setTimeout(()=>c.remove(),5000);
+    }
+}
+</script>
+
+</body>
+</html>
